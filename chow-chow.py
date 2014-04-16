@@ -4,7 +4,7 @@
 import wx
 
 TRAY_TOOLTIP = 'System Tray Demo'
-TRAY_ICON = 'icon32.png'
+TRAY_ICON = 'drawing.png'
 
 
 def create_menu_item(menu, label, func):
