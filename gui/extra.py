@@ -9,32 +9,32 @@ def create_menu_item(menu, label, func):
 
 
 class PromptingComboBox(wx.ComboBox):
-    def __init__(self, parent, value, choices=[], style=0, **par):
-        wx.ComboBox.__init__(self, parent, wx.ID_ANY, value, style=style | wx.CB_DROPDOWN, choices=choices, **par)
-        self.choices = choices
+    def __init__(self, *args, **kwargs):
+        wx.ComboBox.__init__(self, *args, **kwargs)
+        self.choices = []
         self.Bind(wx.EVT_TEXT, self.EvtText)
         self.Bind(wx.EVT_CHAR, self.EvtChar)
         self.Bind(wx.EVT_COMBOBOX, self.EvtCombobox)
-        self.ignoreEvtText = False
+        self.ignore_evt_text = False
 
     def EvtCombobox(self, event):
-        self.ignoreEvtText = True
+        self.ignore_evt_text = True
         event.Skip()
 
     def EvtChar(self, event):
-        if event.GetKeyCode() == 8:
-            self.ignoreEvtText = True
+        if event.GetKeyCode() == 8 or event.GetKeyCode() == 127:
+            self.ignore_evt_text = True
         event.Skip()
 
     def EvtText(self, event):
-        if self.ignoreEvtText:
-            self.ignoreEvtText = False
+        if self.ignore_evt_text:
+            self.ignore_evt_text = False
             return
         currentText = event.GetString()
         found = False
         for choice in self.choices :
             if choice.startswith(currentText):
-                self.ignoreEvtText = True
+                self.ignore_evt_text = True
                 self.SetValue(choice)
                 self.SetInsertionPoint(len(currentText))
                 self.SetMark(len(currentText), len(choice))
