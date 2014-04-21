@@ -1,10 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import wx
-
-from gui.main import MainFrame
-from gui.extra import create_menu_item
+from gui.main import *
+from gui.gui_subclasses import *
+from gui.extra import *
+from persistence.basic import *
 
 TRAY_TOOLTIP = 'Chow Chow'
 TRAY_ICON = 'icon32.png'
@@ -22,8 +22,24 @@ class ChowChowTaskBarIcon(wx.TaskBarIcon):
 
     def CreatePopupMenu(self):
         menu = wx.Menu()
+        create_menu_item(menu, 'View Tasks', self.view_tasks)
         create_menu_item(menu, 'Exit', self.on_exit)
         return menu
+
+    def view_tasks(self, event):
+        num_tasks = len(tasks)
+        if num_tasks > 0:
+            tasks_frame = TasksFrame(self.frame)
+            tasks_frame.tasks_grid.AppendRows(num_tasks)
+            current = tasks[-1]
+            current.time = stop_watch.Time()
+            row = 0
+            for t in tasks:
+                tasks_frame.tasks_grid.SetCellValue(row, 0, t.task)
+                tasks_frame.tasks_grid.SetCellValue(row, 1, (t.time / 1000).__str__())
+                row += 1
+
+            tasks_frame.Show(True)
 
     def show_hide_main_window(self, event):
         if self.frame.IsShown():
@@ -78,7 +94,13 @@ class ChowChowFrame(MainFrame):
         self.Show(False)
 
     def insert_task(self):
-        print 'Inserting task: %s', self.cmb_task.GetValue()
+        if len(tasks) > 0:
+            tasks[-1].time = stop_watch.Time()
+
+        tasks.append(Task(self.cmb_task.GetValue()))
+        stop_watch.Start()
+
+        self.cmb_task.SetValue('')
 
         return True
 
