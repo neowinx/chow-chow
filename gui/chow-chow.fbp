@@ -473,7 +473,7 @@
             <property name="minimum_size"></property>
             <property name="name">TasksBaseFrame</property>
             <property name="pos"></property>
-            <property name="size">500,300</property>
+            <property name="size">515,300</property>
             <property name="style">wxDEFAULT_FRAME_STYLE</property>
             <property name="subclass"></property>
             <property name="title">Tasks Detail</property>

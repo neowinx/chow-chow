@@ -1,8 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from gui.main import *
-from gui.gui_subclasses import *
+from gui.subclasses import *
 from gui.extra import *
 from persistence.basic import *
 
