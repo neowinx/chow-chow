@@ -2,6 +2,7 @@ import wx
 
 tasks = []
 stop_watch = wx.StopWatch()
+DEFAULT_TASKS = ['Breakfast', 'Lunch']
 
 
 class Task():
