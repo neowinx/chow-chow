@@ -4,8 +4,8 @@ from code.base import *
 from code.csv_functions import *
 
 TRAY_TOOLTIP = 'Chow Chow'
-TRAY_ICON = 'icon32.png'
-FRAME_ICON = 'icon32.png'
+TRAY_ICON = 'icons/icon32.png'
+FRAME_ICON = 'icons/icon32.png'
 
 
 class TasksFrame(TasksBaseFrame):
