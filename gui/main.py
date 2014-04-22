@@ -28,16 +28,17 @@ class ChowChowTaskBarIcon(wx.TaskBarIcon):
         return menu
 
     def view_tasks(self, event):
-        num_tasks = len(tasks)
+        num_tasks = len(TASKS)
         if num_tasks > 0:
             tasks_frame = TasksFrame(self.frame)
-            tasks_frame.tasks_grid.AppendRows(num_tasks)
-            current = tasks[-1]
-            current.time = stop_watch.Time()
+            tasks_frame.tasks_grid.AppendRows(num_tasks - 1)
+            TASKS[-1] = update_task_time(TASKS[-1], STOP_WATCH.Time())
             row = 0
-            for t in tasks:
-                tasks_frame.tasks_grid.SetCellValue(row, 0, t.task)
-                tasks_frame.tasks_grid.SetCellValue(row, 1, (t.time / 1000).__str__())
+            for t in TASKS:
+                print 'task_id:', t[TUPLE_INDEX_ID]
+                tasks_frame.tasks_grid.SetCellValue(row, 0, t[TUPLE_INDEX_TASK])
+                tasks_frame.tasks_grid.SetCellValue(row, 1, (t[TUPLE_INDEX_TIME] / 60000).__str__())
+                tasks_frame.tasks_grid.SetCellValue(row, 2, t[TUPLE_INDEX_START])
                 row += 1
 
             tasks_frame.Show(True)
@@ -95,14 +96,11 @@ class ChowChowFrame(MainFrame):
         self.Show(False)
 
     def insert_task(self):
-        if len(tasks) > 0:
-            tasks[-1].time = stop_watch.Time()
-
-        tasks.append(Task(self.cmb_task.GetValue()))
-        stop_watch.Start()
-
+        if len(TASKS) > 0:
+            TASKS[-1] = update_task_time(TASKS[-1], STOP_WATCH.Time())
+        TASKS.append(create_task(self.cmb_task.GetValue()))
+        STOP_WATCH.Start()
         self.cmb_task.SetValue('')
-
         return True
 
     def on_close(self, event):

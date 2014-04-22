@@ -473,7 +473,7 @@
             <property name="minimum_size"></property>
             <property name="name">TasksBaseFrame</property>
             <property name="pos"></property>
-            <property name="size">515,300</property>
+            <property name="size">610,300</property>
             <property name="style">wxDEFAULT_FRAME_STYLE</property>
             <property name="subclass"></property>
             <property name="title">Tasks Detail</property>
@@ -535,10 +535,10 @@
                         <property name="cell_vert_alignment">wxALIGN_TOP</property>
                         <property name="col_label_horiz_alignment">wxALIGN_CENTRE</property>
                         <property name="col_label_size">30</property>
-                        <property name="col_label_values">&quot;Task&quot; &quot;Time (seconds)&quot;</property>
+                        <property name="col_label_values">&quot;Task&quot; &quot;Time (minutes)&quot; &quot;Start Date&quot;</property>
                         <property name="col_label_vert_alignment">wxALIGN_CENTRE</property>
-                        <property name="cols">2</property>
-                        <property name="column_sizes">300,120</property>
+                        <property name="cols">3</property>
+                        <property name="column_sizes">250,110,150</property>
                         <property name="context_help"></property>
                         <property name="context_menu">1</property>
                         <property name="drag_col_move">0</property>

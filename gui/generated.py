@@ -100,7 +100,7 @@ class MainFrame ( wx.Frame ):
 class TasksBaseFrame ( wx.Frame ):
 	
 	def __init__( self, parent ):
-		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Tasks Detail", pos = wx.DefaultPosition, size = wx.Size( 515,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Tasks Detail", pos = wx.DefaultPosition, size = wx.Size( 610,300 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
 		
 		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
 		
@@ -109,20 +109,22 @@ class TasksBaseFrame ( wx.Frame ):
 		self.tasks_grid = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
 		
 		# Grid
-		self.tasks_grid.CreateGrid( 1, 2 )
+		self.tasks_grid.CreateGrid( 1, 3 )
 		self.tasks_grid.EnableEditing( False )
 		self.tasks_grid.EnableGridLines( True )
 		self.tasks_grid.EnableDragGridSize( False )
 		self.tasks_grid.SetMargins( 0, 0 )
 		
 		# Columns
-		self.tasks_grid.SetColSize( 0, 300 )
-		self.tasks_grid.SetColSize( 1, 120 )
+		self.tasks_grid.SetColSize( 0, 250 )
+		self.tasks_grid.SetColSize( 1, 110 )
+		self.tasks_grid.SetColSize( 2, 150 )
 		self.tasks_grid.EnableDragColMove( False )
 		self.tasks_grid.EnableDragColSize( True )
 		self.tasks_grid.SetColLabelSize( 30 )
 		self.tasks_grid.SetColLabelValue( 0, u"Task" )
-		self.tasks_grid.SetColLabelValue( 1, u"Time (seconds)" )
+		self.tasks_grid.SetColLabelValue( 1, u"Time (minutes)" )
+		self.tasks_grid.SetColLabelValue( 2, u"Start Date" )
 		self.tasks_grid.SetColLabelAlignment( wx.ALIGN_CENTRE, wx.ALIGN_CENTRE )
 		
 		# Rows
