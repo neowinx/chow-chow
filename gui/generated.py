@@ -106,6 +106,12 @@ class TasksBaseFrame ( wx.Frame ):
 		
 		tasks_frame_bsizer = wx.BoxSizer( wx.VERTICAL )
 		
+		self.m_toolBar1 = wx.ToolBar( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, wx.TB_HORIZONTAL ) 
+		self.m_toolBar1.AddLabelTool( wx.ID_ANY, u"Export to CSV", wx.Bitmap( u"icons/filesave16.png", wx.BITMAP_TYPE_ANY ), wx.NullBitmap, wx.ITEM_NORMAL, u"Export to CSV", wx.EmptyString ) 
+		self.m_toolBar1.Realize()
+		
+		tasks_frame_bsizer.Add( self.m_toolBar1, 0, wx.EXPAND, 5 )
+		
 		self.tasks_grid = wx.grid.Grid( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, 0 )
 		
 		# Grid
@@ -142,9 +148,17 @@ class TasksBaseFrame ( wx.Frame ):
 		self.Layout()
 		
 		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.Bind( wx.EVT_TOOL, self.on_tool_export_csv_click, id = wx.ID_ANY )
 	
 	def __del__( self ):
 		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def on_tool_export_csv_click( self, event ):
+		event.Skip()
 	
 
 ###########################################################################

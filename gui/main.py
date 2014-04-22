@@ -1,6 +1,7 @@
 from gui.generated import *
 from gui.extra import *
-from persistence.basic import *
+from code.base import *
+from code.csv_functions import *
 
 TRAY_TOOLTIP = 'Chow Chow'
 TRAY_ICON = 'icon32.png'
@@ -12,9 +13,16 @@ class TasksFrame(TasksBaseFrame):
         TasksBaseFrame.__init__(self, parent)
         self.SetIcon(wx.IconFromBitmap(wx.Bitmap(FRAME_ICON)))
 
+    def on_tool_export_csv_click(self, event):
+        save_file_dialog = wx.FileDialog(self, "Save CSV file", "", "", "CSV files (*.csv) | *.csv",
+                                         wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
+        if save_file_dialog.ShowModal() == wx.ID_CANCEL:
+            return     # the user changed idea...
+
+        export_tasks_to_csv(save_file_dialog.GetPath(), TASKS)
+
 
 class ChowChowTaskBarIcon(wx.TaskBarIcon):
-
     def __init__(self, frame):
         super(ChowChowTaskBarIcon, self).__init__()
         self.frame = frame
@@ -35,7 +43,6 @@ class ChowChowTaskBarIcon(wx.TaskBarIcon):
             TASKS[-1] = update_task_time(TASKS[-1], STOP_WATCH.Time())
             row = 0
             for t in TASKS:
-                print 'task_id:', t[TUPLE_INDEX_ID]
                 tasks_frame.tasks_grid.SetCellValue(row, 0, t[TUPLE_INDEX_TASK])
                 tasks_frame.tasks_grid.SetCellValue(row, 1, (t[TUPLE_INDEX_TIME] / 60000).__str__())
                 tasks_frame.tasks_grid.SetCellValue(row, 2, t[TUPLE_INDEX_START])
@@ -55,7 +62,6 @@ class ChowChowTaskBarIcon(wx.TaskBarIcon):
 
 
 class ChowChowFrame(MainFrame):
-
     def __init__(self, parent):
         MainFrame.__init__(self, parent)
 
