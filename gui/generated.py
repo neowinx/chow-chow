@@ -7,7 +7,7 @@
 ## PLEASE DO "NOT" EDIT THIS FILE!
 ###########################################################################
 
-from extra import PromptingComboBox
+from multichoice import TextCtrlAutoComplete
 import wx
 import wx.grid
 
@@ -36,9 +36,8 @@ class MainFrame ( wx.Frame ):
 		self.m_staticText1.Wrap( -1 )
 		controls_fg_sizer.Add( self.m_staticText1, 0, wx.ALL, 5 )
 		
-		cmb_taskChoices = [ u"Breakfast", u"Lunch" ]
-		self.cmb_task = PromptingComboBox( self.panel, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, cmb_taskChoices, 0 )
-		controls_fg_sizer.Add( self.cmb_task, 0, wx.ALL|wx.EXPAND, 5 )
+		self.task_multi_choice_text_ctrl = TextCtrlAutoComplete( self.panel, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
+		controls_fg_sizer.Add( self.task_multi_choice_text_ctrl, 1, wx.ALL|wx.EXPAND, 5 )
 		
 		main_panel_bsizer.Add( controls_fg_sizer, 1, wx.EXPAND, 5 )
 		
@@ -67,8 +66,8 @@ class MainFrame ( wx.Frame ):
 		
 		# Connect Events
 		self.Bind( wx.EVT_CLOSE, self.on_close )
-		self.cmb_task.Bind( wx.EVT_KEY_DOWN, self.cmb_task_key_down )
-		self.cmb_task.Bind( wx.EVT_KEY_UP, self.cmb_task_key_up )
+		self.task_multi_choice_text_ctrl.Bind( wx.EVT_KEY_DOWN, self.cmb_task_key_down )
+		self.task_multi_choice_text_ctrl.Bind( wx.EVT_KEY_UP, self.cmb_task_key_up )
 		self.btn_ok.Bind( wx.EVT_BUTTON, self.btn_ok_click )
 		self.btn_cancel.Bind( wx.EVT_BUTTON, self.btn_cancel_click )
 	

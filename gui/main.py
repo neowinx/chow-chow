@@ -5,13 +5,13 @@ from code.csv_functions import *
 
 TRAY_TOOLTIP = 'Chow Chow'
 TRAY_ICON = 'icons/icon32.png'
-FRAME_ICON = 'icons/icon32.png'
+FRAME_ICON = TRAY_ICON
 
 
 class TasksFrame(TasksBaseFrame):
     def __init__(self, parent):
         TasksBaseFrame.__init__(self, parent)
-        self.SetIcon(wx.IconFromBitmap(wx.Bitmap(FRAME_ICON)))
+        self.SetIcon(parent.tray_icon_bitmap)
 
     def on_tool_export_csv_click(self, event):
         save_file_dialog = wx.FileDialog(self, "Save CSV file", "", "", "CSV files (*.csv) | *.csv",
@@ -26,7 +26,7 @@ class ChowChowTaskBarIcon(wx.TaskBarIcon):
     def __init__(self, frame):
         super(ChowChowTaskBarIcon, self).__init__()
         self.frame = frame
-        self.SetIcon(wx.IconFromBitmap(wx.Bitmap(TRAY_ICON)), TRAY_TOOLTIP)
+        self.SetIcon(self.frame.tray_icon_bitmap, TRAY_TOOLTIP)
         self.Bind(wx.EVT_TASKBAR_LEFT_DOWN, self.show_hide_main_window)
 
     def CreatePopupMenu(self):
@@ -55,7 +55,7 @@ class ChowChowTaskBarIcon(wx.TaskBarIcon):
             self.frame.Show(False)
         else:
             self.frame.Show(True)
-            self.frame.cmb_task.SetFocus()
+            self.frame.task_multi_choice_text_ctrl.SetFocus()
 
     def on_exit(self, event):
         self.frame.Close()
@@ -65,23 +65,35 @@ class ChowChowFrame(MainFrame):
     def __init__(self, parent):
         MainFrame.__init__(self, parent)
 
-        # UI stuff that cannot be generated
-
-        # Assing the task baricon
+        self.tray_icon_bitmap = wx.IconFromBitmap(wx.Bitmap(TRAY_ICON))
+        self.SetIcon(self.tray_icon_bitmap)
         self.task_bar_icon = ChowChowTaskBarIcon(self)
-        self.SetIcon(wx.IconFromBitmap(wx.Bitmap(FRAME_ICON)))
+
         self.Show(True)
 
-        # Loading tasks inside the combo
-
-        self.cmb_task.choices = DEFAULT_TASKS
-        self.cmb_task.Clear()
-        self.cmb_task.AppendItems(DEFAULT_TASKS)
-
-        # Center the frame and set focus in the combo
+        self.task_multi_choice_text_ctrl.SetChoices(DEFAULT_TASKS)
+        self.task_multi_choice_text_ctrl.SetEntryCallback(self.setDynamicChoices)
+        self.task_multi_choice_text_ctrl.SetMatchFunction(self.match)
 
         self.Centre()
-        self.cmb_task.SetFocus()
+        self.task_multi_choice_text_ctrl.SetFocus()
+
+    def match(self, text, choice):
+        t = text.lower()
+        c = choice.lower()
+        if c.startswith(t): return True
+        if c.startswith(r'http://'): c = c[7:]
+        if c.startswith(t): return True
+        if c.startswith('www.'): c = c[4:]
+        return c.startswith(t)
+
+    def setDynamicChoices(self):
+        ctrl = self.task_multi_choice_text_ctrl
+        text = ctrl.GetValue().lower()
+        current_choices = ctrl.GetChoices()
+        choices = [choice[TUPLE_INDEX_TASK] for choice in TASKS if self.match(text, choice[TUPLE_INDEX_TASK])]
+        if choices != current_choices:
+            ctrl.SetChoices(choices)
 
     def cmb_task_key_up(self, event):
         if event.GetKeyCode() == 13:
@@ -104,9 +116,13 @@ class ChowChowFrame(MainFrame):
     def insert_task(self):
         if len(TASKS) > 0:
             TASKS[-1] = update_task_time(TASKS[-1], STOP_WATCH.Time())
-        TASKS.append(create_task(self.cmb_task.GetValue()))
+        TASKS.append(create_task(self.task_multi_choice_text_ctrl.GetValue()))
         STOP_WATCH.Start()
-        self.cmb_task.SetValue('')
+        task_name = self.task_multi_choice_text_ctrl.GetValue()
+        if len(task_name) > 50:
+            task_name = task_name[:50] + '...'
+        self.task_bar_icon.SetIcon(self.tray_icon_bitmap, task_name)
+        self.task_multi_choice_text_ctrl.SetValue('')
         return True
 
     def on_close(self, event):
