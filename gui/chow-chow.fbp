@@ -37,7 +37,7 @@
             <property name="minimum_size"></property>
             <property name="name">MainFrame</property>
             <property name="pos"></property>
-            <property name="size">400,120</property>
+            <property name="size">400,150</property>
             <property name="style">wxDEFAULT_FRAME_STYLE</property>
             <property name="subclass"></property>
             <property name="title">Chow Chow</property>
