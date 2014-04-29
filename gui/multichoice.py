@@ -297,9 +297,9 @@ class TextCtrlAutoComplete(wx.TextCtrl, listmix.ColumnSorterMixin):
             self._choices = list(choices)
         #prevent errors on "old" systems
         if sys.version.startswith("2.3"):
-            self._choices.sort(lambda x, y: cmp(x.lower(), y.lower()))
+            self._choices.sort(lambda x, y: cmp(x.encode('utf8').lower(), y.encode('utf8').lower()))
         else:
-            self._choices.sort(key=lambda x: locale.strxfrm(x).lower())
+            self._choices.sort(key=lambda x: locale.strxfrm(x.encode('utf8')).lower())
         self._updateDataList(self._choices)
         self.dropdownlistbox.InsertColumn(0, "")
         for num, colVal in enumerate(self._choices):

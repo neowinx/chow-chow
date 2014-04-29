@@ -18,3 +18,7 @@ def create_task(task):
 
 def update_task_time(task_tuple, new_time):
     return task_tuple[TUPLE_INDEX_ID], task_tuple[TUPLE_INDEX_TASK], new_time, task_tuple[TUPLE_INDEX_START]
+
+
+def update_task_task(task_tuple, new_task):
+    return task_tuple[TUPLE_INDEX_ID], new_task, task_tuple[TUPLE_INDEX_TIME], task_tuple[TUPLE_INDEX_START]
