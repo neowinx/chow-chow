@@ -1,6 +1,6 @@
 # ChowChow #
 
-![drawing.svg](icons/drawing.svg)
+![drawing.svg](icons/icon.png)
 
 ChowChow it's a simple tool (or at least tha'ts what It claims) to track time spent on tasks.
 
