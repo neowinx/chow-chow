@@ -6,18 +6,20 @@ cur = con.cursor()
 
 
 def create_initial_schema():
-    cur.executescript("""
-        create table task(
-          id REAL primary key,
-          task TEXT,
-          time INTEGER,
-          start TIMESTAMP
-        );
-    """)
+    rows = cur.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='task'").fetchall()
+    if len(rows) <= 0:
+        cur.executescript("""
+            create table task(
+              id REAL primary key,
+              task TEXT,
+              time INTEGER,
+              start TIMESTAMP
+            );
+        """)
 
 
-def insert_task_in_db(id_task,task, time, start):
-    cur.execute("insert into task(id,task, time, start) values (?,?, ?, ?)", (id_task,task, time, start))
+def insert_task_in_db(id_task, task, time, start):
+    cur.execute("insert into task(id,task, time, start) values (?,?, ?, ?)", (id_task, task, time, start))
 
 
 def insert_tasks_in_db(tasks):

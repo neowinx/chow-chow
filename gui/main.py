@@ -71,7 +71,7 @@ class ChowChowFrame(MainFrame):
 
         self.Show(True)
 
-        self.task_multi_choice_text_ctrl.SetChoices(DEFAULT_TASKS)
+        self.task_multi_choice_text_ctrl.SetChoices(task_names())
         self.task_multi_choice_text_ctrl.SetEntryCallback(self.setDynamicChoices)
         self.task_multi_choice_text_ctrl.SetMatchFunction(self.match)
 
