@@ -1,9 +1,10 @@
 import wx
 from time import time
 import datetime
+from code.sqlite_functions import *
 
 
-TASKS = []
+TASKS = select_tasks_in_db()
 STOP_WATCH = wx.StopWatch()
 DEFAULT_TASKS = ['Breakfast', 'Lunch']
 TUPLE_INDEX_ID = 0

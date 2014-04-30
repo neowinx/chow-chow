@@ -16,9 +16,14 @@ def create_initial_schema():
     """)
 
 
-def insert_task_in_db(task, time, start):
-    cur.execute("insert into task(id, task, time, start) values (?, ?, ?, ?)", (task, time, start))
+def insert_task_in_db(id_task,task, time, start):
+    cur.execute("insert into task(id,task, time, start) values (?,?, ?, ?)", (id_task,task, time, start))
 
 
 def insert_tasks_in_db(tasks):
     cur.executemany("insert into task(id, task, time, start) values (?, ?, ?, ?)", tasks)
+
+def select_tasks_in_db():
+    cur.execute("select * from task")
+    return cur.fetchall()
+    

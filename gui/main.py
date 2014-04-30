@@ -2,6 +2,7 @@ from gui.generated import *
 from gui.extra import *
 from code.base import *
 from code.csv_functions import *
+from code.sqlite_functions import *
 
 TRAY_TOOLTIP = 'Chow Chow'
 TRAY_ICON = 'icons/icon32.png'
@@ -27,8 +28,7 @@ class ChowChowTaskBarIcon(wx.TaskBarIcon):
         super(ChowChowTaskBarIcon, self).__init__()
         self.frame = frame
         self.SetIcon(self.frame.tray_icon_bitmap, TRAY_TOOLTIP)
-        self.Bind(wx.EVT_TASKBAR_LEFT_DOWN, self.show_hide_main_window)
-
+        self.Bind(wx.EVT_TASKBAR_LEFT_DOWN, self.show_hide_main_window)	
     def CreatePopupMenu(self):
         menu = wx.Menu()
         create_menu_item(menu, 'View Tasks', self.view_tasks)
@@ -77,6 +77,7 @@ class ChowChowFrame(MainFrame):
 
         self.Centre()
         self.task_multi_choice_text_ctrl.SetFocus()
+	
 
     def match(self, text, choice):
         t = text.lower()
@@ -116,7 +117,9 @@ class ChowChowFrame(MainFrame):
     def insert_task(self):
         if len(TASKS) > 0:
             TASKS[-1] = update_task_time(TASKS[-1], STOP_WATCH.Time())
-        TASKS.append(create_task(self.task_multi_choice_text_ctrl.GetValue()))
+	task = create_task(self.task_multi_choice_text_ctrl.GetValue())
+        TASKS.append(task)
+	insert_task_in_db(task[TUPLE_INDEX_ID],task[TUPLE_INDEX_TASK],task[TUPLE_INDEX_TIME],task[TUPLE_INDEX_START])
         STOP_WATCH.Start()
         task_name = self.task_multi_choice_text_ctrl.GetValue()
         if len(task_name) > 50:
