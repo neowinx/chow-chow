@@ -1,4 +1,5 @@
 import wx
+import os
 from time import time
 import datetime
 from code.sqlite_functions import *
@@ -26,3 +27,13 @@ def update_task_task(task_tuple, new_task):
 
 def task_names():
     return [choice[TUPLE_INDEX_TASK] for choice in TASKS]
+
+
+def resource_path(relative):
+    return os.path.join(
+        os.environ.get(
+            "_MEIPASS2",
+            os.path.abspath(".")
+        ),
+        relative
+    )
