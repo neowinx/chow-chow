@@ -4,8 +4,8 @@ from time import time
 import datetime
 from code.sqlite_functions import *
 
-create_initial_schema()
-TASKS = select_tasks_in_db()
+db_create_initial_schema()
+TASKS = db_select_tasks()
 STOP_WATCH = wx.StopWatch()
 TUPLE_INDEX_ID = 0
 TUPLE_INDEX_TASK = 1

@@ -34,6 +34,7 @@ class ChowChowTaskBarIcon(wx.TaskBarIcon):
     def CreatePopupMenu(self):
         menu = wx.Menu()
         create_menu_item(menu, 'View Tasks', self.view_tasks)
+        create_menu_item(menu, 'Delete current tasks', self.on_delete_current_tasks)
         create_menu_item(menu, 'Exit', self.on_exit)
         return menu
 
@@ -58,6 +59,15 @@ class ChowChowTaskBarIcon(wx.TaskBarIcon):
         else:
             self.frame.Show(True)
             self.frame.task_multi_choice_text_ctrl.SetFocus()
+
+    def on_delete_current_tasks(self, event):
+        diag_delete_tasks = wx.MessageDialog(self.frame, 'Are you sure you want to delete all tasks?',
+                                             'Delete all tasks', wx.OK | wx.CANCEL | wx.ICON_QUESTION | wx.CENTRE)
+        result = diag_delete_tasks.ShowModal()
+        diag_delete_tasks.Destroy()
+        if result == wx.ID_OK:
+            db_delete_tasks()
+            self.frame.task_multi_choice_text_ctrl.Clear()
 
     def on_exit(self, event):
         self.frame.Close()
@@ -101,7 +111,7 @@ class ChowChowFrame(MainFrame):
             TASKS[-1] = update_task_time(TASKS[-1], STOP_WATCH.Time())
         task = create_task(self.task_multi_choice_text_ctrl.GetValue())
         TASKS.append(task)
-        insert_task_in_db(task[TUPLE_INDEX_ID], task[TUPLE_INDEX_TASK], task[TUPLE_INDEX_TIME], task[TUPLE_INDEX_START])
+        db_insert_task(task[TUPLE_INDEX_ID], task[TUPLE_INDEX_TASK], task[TUPLE_INDEX_TIME], task[TUPLE_INDEX_START])
         STOP_WATCH.Start()
         task_name = self.task_multi_choice_text_ctrl.GetValue()
         if len(task_name) > 50:
