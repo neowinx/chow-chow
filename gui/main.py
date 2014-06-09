@@ -5,7 +5,7 @@ from code.csv_functions import *
 from code.sqlite_functions import *
 
 TRAY_TOOLTIP = 'Chow Chow'
-TRAY_ICON = 'icons/icon32Dev.png'
+TRAY_ICON = 'icons/icon32.png'
 FRAME_ICON = TRAY_ICON
 
 
