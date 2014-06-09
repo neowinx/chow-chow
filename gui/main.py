@@ -5,7 +5,7 @@ from code.csv_functions import *
 from code.sqlite_functions import *
 
 TRAY_TOOLTIP = 'Chow Chow'
-TRAY_ICON = 'icons/icon32.png'
+TRAY_ICON = 'icons/icon32Dev.png'
 FRAME_ICON = TRAY_ICON
 
 
@@ -24,11 +24,13 @@ class TasksFrame(TasksBaseFrame):
 
 
 class ChowChowTaskBarIcon(wx.TaskBarIcon):
+
     def __init__(self, frame):
         super(ChowChowTaskBarIcon, self).__init__()
         self.frame = frame
         self.SetIcon(self.frame.tray_icon_bitmap, TRAY_TOOLTIP)
-        self.Bind(wx.EVT_TASKBAR_LEFT_DOWN, self.show_hide_main_window)	
+        self.Bind(wx.EVT_TASKBAR_LEFT_DOWN, self.show_hide_main_window)
+
     def CreatePopupMenu(self):
         menu = wx.Menu()
         create_menu_item(menu, 'View Tasks', self.view_tasks)
@@ -71,30 +73,10 @@ class ChowChowFrame(MainFrame):
 
         self.Show(True)
 
-        self.task_multi_choice_text_ctrl.SetChoices(task_names())
-        self.task_multi_choice_text_ctrl.SetEntryCallback(self.setDynamicChoices)
-        self.task_multi_choice_text_ctrl.SetMatchFunction(self.match)
+        self.task_multi_choice_text_ctrl.SetItems(task_names())
 
         self.Centre()
         self.task_multi_choice_text_ctrl.SetFocus()
-	
-
-    def match(self, text, choice):
-        t = text.lower()
-        c = choice.lower()
-        if c.startswith(t): return True
-        if c.startswith(r'http://'): c = c[7:]
-        if c.startswith(t): return True
-        if c.startswith('www.'): c = c[4:]
-        return c.startswith(t)
-
-    def setDynamicChoices(self):
-        ctrl = self.task_multi_choice_text_ctrl
-        text = ctrl.GetValue().lower()
-        current_choices = ctrl.GetChoices()
-        choices = [choice[TUPLE_INDEX_TASK] for choice in TASKS if self.match(text, choice[TUPLE_INDEX_TASK])]
-        if choices != current_choices:
-            ctrl.SetChoices(choices)
 
     def cmb_task_key_up(self, event):
         if event.GetKeyCode() == 13:
@@ -117,9 +99,9 @@ class ChowChowFrame(MainFrame):
     def insert_task(self):
         if len(TASKS) > 0:
             TASKS[-1] = update_task_time(TASKS[-1], STOP_WATCH.Time())
-	task = create_task(self.task_multi_choice_text_ctrl.GetValue())
+        task = create_task(self.task_multi_choice_text_ctrl.GetValue())
         TASKS.append(task)
-	insert_task_in_db(task[TUPLE_INDEX_ID],task[TUPLE_INDEX_TASK],task[TUPLE_INDEX_TIME],task[TUPLE_INDEX_START])
+        insert_task_in_db(task[TUPLE_INDEX_ID], task[TUPLE_INDEX_TASK], task[TUPLE_INDEX_TIME], task[TUPLE_INDEX_START])
         STOP_WATCH.Start()
         task_name = self.task_multi_choice_text_ctrl.GetValue()
         if len(task_name) > 50:

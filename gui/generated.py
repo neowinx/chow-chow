@@ -7,7 +7,6 @@
 ## PLEASE DO "NOT" EDIT THIS FILE!
 ###########################################################################
 
-from multichoice import TextCtrlAutoComplete
 import wx
 import wx.grid
 
@@ -36,8 +35,9 @@ class MainFrame ( wx.Frame ):
 		self.m_staticText1.Wrap( -1 )
 		controls_fg_sizer.Add( self.m_staticText1, 0, wx.ALL, 5 )
 		
-		self.task_multi_choice_text_ctrl = TextCtrlAutoComplete( self.panel, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, 0 )
-		controls_fg_sizer.Add( self.task_multi_choice_text_ctrl, 1, wx.ALL|wx.EXPAND, 5 )
+		task_multi_choice_text_ctrlChoices = []
+		self.task_multi_choice_text_ctrl = wx.ComboBox( self.panel, wx.ID_ANY, wx.EmptyString, wx.DefaultPosition, wx.DefaultSize, task_multi_choice_text_ctrlChoices, 0 )
+		controls_fg_sizer.Add( self.task_multi_choice_text_ctrl, 0, wx.ALL|wx.EXPAND, 5 )
 		
 		main_panel_bsizer.Add( controls_fg_sizer, 1, wx.EXPAND, 5 )
 		
@@ -115,7 +115,7 @@ class TasksBaseFrame ( wx.Frame ):
 		
 		# Grid
 		self.tasks_grid.CreateGrid( 1, 3 )
-		self.tasks_grid.EnableEditing( False )
+		self.tasks_grid.EnableEditing( True )
 		self.tasks_grid.EnableGridLines( True )
 		self.tasks_grid.EnableDragGridSize( False )
 		self.tasks_grid.SetMargins( 0, 0 )
@@ -124,7 +124,7 @@ class TasksBaseFrame ( wx.Frame ):
 		self.tasks_grid.SetColSize( 0, 250 )
 		self.tasks_grid.SetColSize( 1, 110 )
 		self.tasks_grid.SetColSize( 2, 150 )
-		self.tasks_grid.EnableDragColMove( False )
+		self.tasks_grid.EnableDragColMove( True )
 		self.tasks_grid.EnableDragColSize( True )
 		self.tasks_grid.SetColLabelSize( 30 )
 		self.tasks_grid.SetColLabelValue( 0, u"Task" )
