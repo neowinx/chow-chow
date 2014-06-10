@@ -8,7 +8,9 @@ These are the flavors of Chow Chow:
 
 ### Windows ###
 
-Download and extract the archive in the next link and execute **chowchow.exe**:
+Download and extract the corresponding archive in the next links and execute **chowchow.exe**:
+
+[chow-chow-0.0.1-alpha-win32.zip](https://dl.dropboxusercontent.com/u/34045080/chow-chow/chow-chow-0.0.1-alpha-win32.zip)
 
 [chow-chow-0.0.1-alpha-win64.zip](https://dl.dropboxusercontent.com/u/34045080/chow-chow/chow-chow-0.0.1-alpha-win64.zip)
 
