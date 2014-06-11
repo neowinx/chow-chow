@@ -2,6 +2,36 @@
 
 ChowChow it's a simple tool to track time spent on tasks.
 
+## How to use ##
+
+**1-** Insert your task
+
+![insert_task_window.png](docs/img/insert_task_window.png)
+
+**2-**  Do some work
+
+**3- Click** on the taskbar icon
+
+![task_bar_icon.png](docs/img/task_bar_icon.png)
+
+**4-** Insert your **new task**
+
+![insert_task_window2.png](docs/img/insert_task_window2.png)
+
+**4-** Do some other stuff
+
+**5-** Repeat steps **1** to **4** if not done
+
+**6-** When done **right click** on the taskbar icon and click on **View Tasks** menu to see the Task Details window
+
+![chow_chow_menu.png](docs/img/chow_chow_menu.png)
+
+![tasks_detail.png](docs/img/tasks_detail.png)
+
+**7-** Export to csv in case you need do more with the data
+
+![export_to_csv.png](docs/img/export_to_csv.png)
+
 ## Installation ##
 
 These are the flavors of Chow Chow:
