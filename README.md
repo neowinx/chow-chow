@@ -1,22 +1,24 @@
-# ChowChow #
+# ![drawing.svg](icons/icon32.png) ChowChow #
 
-![drawing.svg](icons/icon32.png)
-
-ChowChow it's a simple tool (or at least tha'ts what It claims) to track time spent on tasks.
+ChowChow it's a simple tool to track time spent on tasks.
 
 ## Installation ##
 
-There are various flavors that you could use to install ChowChow :)
+These are the flavors of Chow Chow:
 
 ### Windows ###
 
-Download and extract the archive in the next link and execute **chowchow.exe**:
+Download and extract the corresponding archive in the next links and execute **chowchow.exe**:
 
-[chowchow.zip](http://www.example.org/)
+[chow-chow-0.0.1-alpha-win32.zip](https://dl.dropboxusercontent.com/u/34045080/chow-chow/chow-chow-0.0.1-alpha-win32.zip)
+
+[chow-chow-0.0.1-alpha-win64.zip](https://dl.dropboxusercontent.com/u/34045080/chow-chow/chow-chow-0.0.1-alpha-win64.zip)
 
 ### Linux ###
 
 Download and extract the archive in the next link and execute **chowchow**:
+
+[chow-chow-0.0.1-alpha-linux.tar.gz](https://dl.dropboxusercontent.com/u/34045080/chow-chow/chow-chow-0.0.1-alpha-linux.tar.gz)
 
 #### Issues ####
 
