@@ -28,7 +28,7 @@ ChowChow it's a simple tool to track time spent on tasks.
 
 ![tasks_detail.png](docs/img/tasks_detail.png)
 
-**7-** Export to csv in case you need do more with the data
+**7-** Export to csv in case you need to do more stuff with the data registered in chow chow 
 
 ![export_to_csv.png](docs/img/export_to_csv.png)
 
@@ -48,11 +48,11 @@ Download and extract the corresponding archive in the next links and execute **c
 
 Download and extract the archive in the next link and execute **chowchow**:
 
-[chow-chow-0.0.1-alpha-linux.tar.gz](https://dl.dropboxusercontent.com/u/34045080/chow-chow/chow-chow-0.0.1-alpha-linux.tar.gz)
+[chow-chow-0.0.1-alpha-linux-x86_64.tar.gz](https://dl.dropboxusercontent.com/u/34045080/chow-chow/chow-chow-0.0.1-alpha-linux.tar.gz)
 
 #### Issues ####
 
-In some distributions are issues with the fonts we recommend you to use python directly in those cases.
+We detected some issues in linux distributions with the fonts and the pango dependencies of wxPython. We recommend you to donwload the source and use the `chow-chow.py` python script directly in those cases.
 
 ## Development ##
 
